@@ -1,6 +1,6 @@
 {
   "name": "jsx-to-html",
-  "version": "1.0.3",
+  "version": "1.0.4",
   "description": "Render JSX-IR to HTML or XML string",
   "main": "index.js",
   "scripts": {
