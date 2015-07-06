@@ -1,0 +1,15 @@
+{
+  "name": "jsx-renderer-html",
+  "version": "1.0.0",
+  "description": "Render JSX-IR to HTML or XML string",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Arthur Stolyar <nekr.fabula@gmail.com>",
+  "license": "MIT",
+  "dependencies": {
+    "escape-html": "^1.0.2"
+  },
+  "repository": "jsx-ir/jsx-renderer-html",
+}
