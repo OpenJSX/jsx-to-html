@@ -1,17 +1,17 @@
-## HTML and XML renderer for JSX-IR
+## HTML and XML builder for JSX-IR
 
 ### Install
 
-```npm install jsx-renderer-html```
+```npm install jsx-to-html```
 
 ### Usage
 
-**Note:** Do not forget to install ```jsx-runtime``` before using renderer
+**Note:** Do not forget to install ```jsx-runtime``` before using builder
 
 ```javascript
-var renderer = require('jsx-renderer-html');
+var toHTML = require('jsx-to-html');
 // ...
-var html = renderer.render(jsxTree);
+var html = toHTML(jsxTree);
 
 element.innerHTML = html;
 ```

@@ -1,6 +1,6 @@
 {
-  "name": "jsx-renderer-html",
-  "version": "1.0.2",
+  "name": "jsx-to-html",
+  "version": "1.0.3",
   "description": "Render JSX-IR to HTML or XML string",
   "main": "index.js",
   "scripts": {
@@ -14,5 +14,5 @@
   "peerDependencies": {
     "jsx-runtime": "^1.0.0"
   },
-  "repository": "jsx-ir/jsx-renderer-html"
+  "repository": "jsx-ir/jsx-to-html"
 }
