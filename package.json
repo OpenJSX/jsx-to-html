@@ -12,7 +12,7 @@
     "escape-html": "^1.0.2"
   },
   "peerDependencies": {
-    "jsx-runtime": "^1.0.0",
+    "jsx-runtime": "^1.0.0"
   },
-  "repository": "jsx-ir/jsx-renderer-html",
+  "repository": "jsx-ir/jsx-renderer-html"
 }
