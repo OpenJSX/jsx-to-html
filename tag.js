@@ -7,7 +7,7 @@ function Tag(name, props) {
 Tag.prototype.toString = function() {
   var props = this.props ? ' ' + this.props : '';
 
-  return '<' this.name + props '>' +
+  return '<' + this.name + props + '>' +
     this.children.join('') +
   '</' + this.name + '>';
 };
