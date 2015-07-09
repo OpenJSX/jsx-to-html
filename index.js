@@ -45,6 +45,4 @@ var renderer = jsx.register('HTML', {
   }
 });
 
-module.exports = function(tree) {
-  return renderer.render(tree);
-};
+module.exports = renderer;
