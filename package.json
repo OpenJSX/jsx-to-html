@@ -4,15 +4,16 @@
   "description": "Render JSX-IR to HTML or XML string",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "node_modules/.bin/mocha tests/test.js"
   },
   "author": "Arthur Stolyar <nekr.fabula@gmail.com>",
   "license": "MIT",
   "dependencies": {
     "babel-plugin-jsx": "^1.1.0",
-    "jsx-runtime": "^1.1.0",
+    "empty-tags": "^1.0.0",
     "escape-html": "^1.0.2",
     "html-tags": "^1.1.1",
+    "jsx-runtime": "^1.1.0",
     "svg-tags": "^1.0.0"
   },
   "repository": "jsx-ir/jsx-to-html",

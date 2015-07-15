@@ -3,11 +3,20 @@ var escape = require('escape-html');
 var Tag = require('./lib/tag');
 var hasOwn = Object.prototype.hasOwnProperty;
 
+var emptyTags = require('empty-tags').reduce(function(map, tag) {
+  map[tag] = true;
+  return map;
+}, Object.create(null));
+
 var renderer = jsx.register('HTML', {
   tags: {
     '*': {
       enter: function(tag, props) {
-        return new Tag(escape(tag), props);
+        if (escape(tag) !== tag) {
+          throw new Error('Incorrect tag name: ' + tag);
+        }
+
+        return new Tag(tag, props);
       },
       leave: function(parent, tag) {
         return parent;
@@ -16,16 +25,27 @@ var renderer = jsx.register('HTML', {
         if (child == null) return parent;
 
         if (child instanceof Tag) {
-          parent.children.push(child);
+          // do nothing
         } else {
           child = escape(child + '');
         }
+
+        parent.children.push(child);
 
         return parent;
       },
       props: function(props) {
         return Object.keys(props)
-          .map(mapProps).join(' ');
+          .map(function(key) {
+            return mapProps(key, key && props[key]);
+          }).join(' ');
+      },
+      children: function(children, parent, tag) {
+        if (typeof emptyTags[tag.toLowerCase()] !== 'undefined') {
+          throw new Error('Tag <' + tag + ' /> cannot have children');
+        }
+
+        return children;
       }
     }
   },
@@ -36,9 +56,7 @@ var renderer = jsx.register('HTML', {
 
 module.exports = renderer;
 
-function mapProps(key) {
-  var val = key && props[key];
-
+function mapProps(key, val) {
   if (!key || val == null) return '';
   if (val instanceof Tag) return '';
 
@@ -67,6 +85,8 @@ function handleStyle(style) {
   for (var key in style) {
     if (!hasOwn.call(style, key)) continue;
 
+    var val = style[key];
+
     key = key.replace(/[A-Z]/g, function(m) {
       return '-' + m.toLowerCase();
     });
@@ -75,7 +95,7 @@ function handleStyle(style) {
       key = '-' + key;
     }
 
-    string += key + ': ' + val + ';';
+    string += (string ? ' ' : '') + key + ': ' + val + ';';
   }
 
   return string;
