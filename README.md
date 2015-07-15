@@ -1,17 +1,31 @@
-## HTML and XML renderer for JSX-IR
+## HTML Renderer for JSX-IR
 
-### Install
+### Installation
 
 ```npm install jsx-to-html```
 
 ### Usage
 
-**Note:** Do not forget to install ```jsx-runtime``` before using renderer
+#### Transpiling
+
+```js
+babel.transform(code, {
+  plugins: ['jsx-to-html/babel-plugin'],
+  blacklist: ['react']
+});
+```
+or any other way described [here](http://babeljs.io/docs/advanced/plugins/#usage), just pass `'jsx-to-html/babel-plugin'`` as a plugin name.
+
+### Runtime
 
 ```javascript
-var toHTML = require('jsx-to-html');
-// ...
-var html = toHTML(jsxTree);
+import { render } from 'jsx-to-html';
 
-element.innerHTML = html;
+var content = render(<div className="hello">Hello World</div>);
+
+container.innerHTML = content;
 ```
+
+## License
+
+[MIT](LICENSE.md)
