@@ -1,3 +1,5 @@
+[![Build Status](https://travis-ci.org/jsx-ir/jsx-to-html.svg?branch=master)](https://travis-ci.org/jsx-ir/jsx-to-html)
+
 ## HTML Renderer for JSX-IR
 
 ### Installation
