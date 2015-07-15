@@ -9,10 +9,10 @@
   "author": "Arthur Stolyar <nekr.fabula@gmail.com>",
   "license": "MIT",
   "dependencies": {
-    "babel-plugin-jsx": "^1.0.1",
+    "babel-plugin-jsx": "^1.1.0",
+    "jsx-runtime": "^1.1.0",
     "escape-html": "^1.0.2",
     "html-tags": "^1.1.1",
-    "jsx-runtime": "^1.0.2",
     "svg-tags": "^1.0.0"
   },
   "repository": "jsx-ir/jsx-to-html",
