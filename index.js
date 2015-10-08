@@ -1,6 +1,7 @@
 var jsx = require('jsx-runtime');
 var escape = require('escape-html');
 var Tag = require('./lib/tag');
+var Fragment = require('./lib/fragment');
 var hasOwn = Object.prototype.hasOwnProperty;
 
 var emptyTags = require('empty-tags').reduce(function(map, tag) {
@@ -9,6 +10,19 @@ var emptyTags = require('empty-tags').reduce(function(map, tag) {
 }, Object.create(null));
 
 var renderer = jsx.register('HTML', {
+  renderTo: function(target, result) {
+    target.innerHTML = result + '';
+  },
+
+  fragment: function() {
+    return new Fragment();
+  },
+
+  params: {
+    renderType: 'individual',
+    updateType: 'difference',
+  },
+
   tags: {
     '*': {
       enter: function(tag, props) {
@@ -21,18 +35,35 @@ var renderer = jsx.register('HTML', {
       leave: function(parent, tag) {
         return parent;
       },
-      child: function(child, parent) {
+      child: function(child, parent, index) {
         if (child == null) return parent;
 
-        if (child instanceof Tag) {
-          // do nothing
+        if (child instanceof jsx.Stream) {
+          handleStream(child);
         } else {
-          child = escape(child + '');
+          // child = handle(child);
+          // parent.children.push(child);
+          parent.children.push(handleChild(child));
         }
 
-        parent.children.push(child);
+        return child;
 
-        return parent;
+        function handleStream(child) {
+          var lastCount = 0;
+          var update = function() {
+            var update = child.get()
+            var index = update[0];
+            var removeCount = update[1];
+            var items = update[2].map(handleChild);
+
+            // if (lastCount) {
+              [].splice.apply(parent.children, [index, removeCount].concat(items));
+            // }
+          }
+
+          child.listen(update);
+          update();
+        }
       },
       props: function(props) {
         return Object.keys(props)
@@ -48,9 +79,6 @@ var renderer = jsx.register('HTML', {
         return children;
       }
     }
-  },
-  after: function(tag) {
-    return tag.toString();
   }
 });
 
@@ -99,4 +127,12 @@ function handleStyle(style) {
   }
 
   return string;
+}
+
+function handleChild(child) {
+  if (child instanceof Tag) {
+    return child;
+  } else {
+    return escape(child + '');
+  }
 }
